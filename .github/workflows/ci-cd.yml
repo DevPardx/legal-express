@@ -119,19 +119,19 @@ jobs:
 
       - name: Create backend .env for E2E
         run: |
-          cat > apps/backend/.env << 'EOF'
-NODE_ENV=development
-PORT=3000
-DATABASE_URL=postgresql://postgres:password@localhost:5432/legal_express_e2e
-REDIS_URL=redis://localhost:6379
-FRONTEND_URL=http://localhost:5173
-PDF_STORAGE_DIR=./generated
-WEBHOOK_SECRET=e2e-webhook-secret-for-ci-testing-only-00
-JWT_SECRET=e2e-jwt-secret-for-ci-testing-only-000000000
-ADMIN_EMAIL=admin@legalexpress.local
-ADMIN_PASSWORD=e2etestpassword
-LOG_LEVEL=debug
-EOF
+          {
+            echo "NODE_ENV=development"
+            echo "PORT=3000"
+            echo "DATABASE_URL=postgresql://postgres:password@localhost:5432/legal_express_e2e"
+            echo "REDIS_URL=redis://localhost:6379"
+            echo "FRONTEND_URL=http://localhost:5173"
+            echo "PDF_STORAGE_DIR=./generated"
+            echo "WEBHOOK_SECRET=e2e-webhook-secret-for-ci-testing-only-00"
+            echo "JWT_SECRET=e2e-jwt-secret-for-ci-testing-only-000000000"
+            echo "ADMIN_EMAIL=admin@legalexpress.local"
+            echo "ADMIN_PASSWORD=e2etestpassword"
+            echo "LOG_LEVEL=debug"
+          } > apps/backend/.env
 
       - name: Generate Prisma client
         run: npx prisma generate --config=apps/backend/prisma.config.ts
