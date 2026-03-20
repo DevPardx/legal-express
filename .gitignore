@@ -12,3 +12,5 @@ coverage/
 prisma/migrations/
 uploads/
 generated/
+DEPLOY_VPS.md
+DEPLOY.md
