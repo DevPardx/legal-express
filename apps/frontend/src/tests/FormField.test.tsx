@@ -1,6 +1,12 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, it, expect, vi } from "vitest";
+
+// lucide-react CJS bundle is incompatible with jsdom — stub all icons
+vi.mock("lucide-react", () => ({
+  TriangleAlert: () => null,
+}));
+
 import { FormField } from "../components/form/FormField";
 import { I18nProvider } from "../i18n";
 import type { FormFieldSchema } from "@legal-express/shared";
