@@ -53,11 +53,11 @@ export function DocumentDashboard() {
   useDocumentEvents(useCallback((event) => {
     if (event.type === "document:status") {
       setDocuments((prev) =>
-        prev.map((d) =>
-          d.id === event.documentId
-            ? { ...d, status: event.status as JobStatus, fileUrl: event.fileUrl !== undefined ? event.fileUrl : d.fileUrl }
-            : d
-        )
+        prev.map((d) => {
+          if (d.id !== event.documentId) return d;
+          const fileUrl: string | null = event.fileUrl !== undefined ? event.fileUrl : d.fileUrl;
+          return { ...d, status: event.status as JobStatus, fileUrl };
+        })
       );
       if (event.status === "completed") {
         setStats((s) => ({ ...s, completedMonth: s.completedMonth + 1, pending: Math.max(0, s.pending - 1) }));
