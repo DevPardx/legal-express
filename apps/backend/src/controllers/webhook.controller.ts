@@ -35,7 +35,7 @@ export class WebhookController {
                 return;
             }
 
-            const { jobId, paymentStatus, amount, currency, transactionId } = parsed.data;
+            const { jobId, paymentStatus, amount, currency: _currency, transactionId } = parsed.data;
 
             // Find associated document
             const document = await prisma.document.findFirst({
@@ -95,7 +95,7 @@ export class WebhookController {
                 message: `Payment ${paymentStatus} processed for job ${jobId}`,
             });
         } catch (error) {
-            next(error)
+            next(error);
         }
     }
 }

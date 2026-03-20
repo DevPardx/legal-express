@@ -1,6 +1,6 @@
 import type { Request, Response, NextFunction } from "express";
 import z from "zod";
-import { Prisma } from "@prisma/client";
+import type { Prisma } from "@prisma/client";
 import { documentService } from "@/services/document.service.js";
 import { prisma } from "@/config/database.config.js";
 import { pdfQueue } from "@/queues/pdf.queue.js";
@@ -48,7 +48,7 @@ export class DocumentController {
                 data: result
             });
         } catch (error) {
-            next(error)
+            next(error);
         }
     }
 

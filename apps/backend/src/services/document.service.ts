@@ -1,10 +1,7 @@
 import { prisma } from "@/config/database.config.js";
-import { JobStatus, Prisma } from "@prisma/client";
+import type { Prisma } from "@prisma/client";
 import { pdfQueue } from "@/queues/pdf.queue.js";
-import type {
-    GenerateDocRequest,
-    GenerateDocResponse
-} from "@legal-express/shared";
+import type { GenerateDocRequest } from "@legal-express/shared";
 
 export class DocumentService {
     async generateDocument(request: GenerateDocRequest) {
@@ -88,7 +85,7 @@ export class DocumentService {
             documentId: document.id,
             status: "queued",
             message: "Document generate queued successfully."
-        }
+        };
     }
 
     async getDocumentStatus(documentId: string) {
@@ -107,7 +104,7 @@ export class DocumentService {
             fileUrl: document.fileUrl,
             jobId: document.jobId,
             jobStatus: document.job?.status.toLowerCase()
-        }
+        };
     }
 }
 

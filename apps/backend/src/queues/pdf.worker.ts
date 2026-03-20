@@ -47,7 +47,7 @@ export function createPdfWorker() {
                 generatedAt: new Date().toISOString(),
                 year: new Date().getFullYear(),
                 referenceNumber: Math.random().toString(36).substring(2, 8).toUpperCase()
-            }
+            };
 
             const html = await templateService.render(templateId, templateData);
 

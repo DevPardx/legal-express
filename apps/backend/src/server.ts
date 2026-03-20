@@ -28,10 +28,10 @@ async function bootstrap() {
         });
 
         setTimeout(() => {
-            console.error('Forced shutdown after timeout');
+            console.error("Forced shutdown after timeout");
             process.exit(1);
         }, 10_000);
-    }
+    };
 
     process.on("SIGTERM", () => void shutdown("SIGTERM"));
     process.on("SIGINT", () => void shutdown("SIGINT"));

@@ -28,14 +28,14 @@ export function createApp() {
     const generatedDir = join(__dirname, "../", env.PDF_STORAGE_DIR);
     app.use("/generated", express.static(generatedDir));
 
-      app.get('/health', (_req, res) => {
-        res.status(200).json({ status: 'ok', timestamp: new Date().toISOString() });
+    app.get("/health", (_req, res) => {
+        res.status(200).json({ status: "ok", timestamp: new Date().toISOString() });
     });
 
-    app.use('/api', authRoutes);
-    app.use('/api', documentRoutes);
-    app.use('/api', webhookRoutes);
-    app.use('/api', invoiceRoutes);
+    app.use("/api", authRoutes);
+    app.use("/api", documentRoutes);
+    app.use("/api", webhookRoutes);
+    app.use("/api", invoiceRoutes);
 
     app.use(notFoundHandler);
     app.use(errorHandler);
