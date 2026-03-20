@@ -178,7 +178,6 @@ export function FormField({ field, value, error, onChange }: FormFieldProps) {
                     onChange={() => onChange(field.id, opt.value)}
                     className="accent-primary"
                     required={field.required}
-                    aria-required={field.required}
                   />
                   {getTranslatedOption(field.id, opt.value, opt.label, t)}
                 </label>

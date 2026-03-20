@@ -35,7 +35,7 @@ export function Sidebar() {
         </span>
       </div>
 
-      <ul className="flex flex-col gap-1 flex-1" role="list">
+      <ul className="flex flex-col gap-1 flex-1">
         {NAV_ITEMS.map((item, i) => (
           <li key={`${item.to}-${i}`}>
             <NavLink

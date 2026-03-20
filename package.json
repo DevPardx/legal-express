@@ -13,6 +13,7 @@
     "test": "npm run test -w packages/shared && npm run test -w apps/frontend && npm run test -w apps/backend",
     "test:e2e": "npm run test:e2e -w apps/frontend",
     "lint": "eslint . --ext .ts,.tsx",
+    "lint:fix": "eslint --fix .",
     "format": "prettier --write \"**/*.{ts,tsx,json,md}\"",
     "typecheck": "tsc --build",
     "db:migrate": "npm run db:migrate -w apps/backend",

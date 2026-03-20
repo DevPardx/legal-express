@@ -74,8 +74,8 @@ test.describe("Document request flow", () => {
     await page.getByRole("button", { name: /next/i }).click();
 
     // Step 2 — document details
-    await page.selectOption('[name="documentType"]', "CONTRACT");
-    await page.selectOption('[name="outputFormat"]', "pdf");
+    await page.selectOption("[name=\"documentType\"]", "CONTRACT");
+    await page.selectOption("[name=\"outputFormat\"]", "pdf");
     await page.getByRole("button", { name: /next/i }).click();
 
     // Step 3 — review & submit

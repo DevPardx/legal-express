@@ -75,7 +75,7 @@ async function main() {
     // ── Step 2: Create sample attachment PDFs ────────────────────────────────
     const attachment1 = await createSamplePdf("Attachment-1-Terms");
     const attachment2 = await createSamplePdf("Attachment-2-Proof-of-Payment");
-    console.log(`Sample attachments created`);
+    console.log("Sample attachments created");
 
     // ── Step 3: Bundle PDFs (main + attachments) ─────────────────────────────
     // Note: to bundle with the main document PDF it must already exist.

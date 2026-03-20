@@ -11,7 +11,10 @@ export type DocumentEvent = DocumentStatusEvent;
 
 export function useDocumentEvents(onEvent: (event: DocumentEvent) => void) {
   const callbackRef = useRef(onEvent);
-  callbackRef.current = onEvent;
+
+  useEffect(() => {
+    callbackRef.current = onEvent;
+  });
 
   useEffect(() => {
     const token = localStorage.getItem("le_token");

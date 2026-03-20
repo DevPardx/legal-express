@@ -149,8 +149,8 @@ async function createTemplate() {
     await writeFile(OUTPUT, buffer);
 
     console.log(`DOCX template created: ${OUTPUT}`);
-    console.log(`Placeholders: {firstName} {lastName} {email} {documentType}`);
-    console.log(`              {documentId} {generatedAt} {year} {referenceNumber} {description}`);
+    console.log("Placeholders: {firstName} {lastName} {email} {documentType}");
+    console.log("              {documentId} {generatedAt} {year} {referenceNumber} {description}");
 }
 
 createTemplate().catch(err => {

@@ -39,15 +39,16 @@ export function DocumentDetail() {
       .finally(() => setIsLoading(false));
   }, [id]);
 
-  // Poll while document is processing
+  // Poll while document is processing — derive status so `doc` object isn't a dep
+  const docStatus = doc?.status;
   useEffect(() => {
-    if (!id || !doc) return;
-    if (doc.status !== "queued" && doc.status !== "processing") return;
+    if (!id) return;
+    if (docStatus !== "queued" && docStatus !== "processing") return;
     const interval = setInterval(() => {
       getDocumentById(id).then(setDoc).catch(() => null);
     }, 2000);
     return () => clearInterval(interval);
-  }, [id, doc?.status]);
+  }, [id, docStatus]);
 
   // Build blob URL when fileUrl changes to an HTML file
   useEffect(() => {
@@ -122,7 +123,7 @@ export function DocumentDetail() {
     <DashboardLayout>
       <div className="flex items-center justify-between px-8 py-4 bg-white border-b border-[#E5E7EB]">
         <nav aria-label="Breadcrumb">
-          <ol className="flex items-center gap-1.5" role="list">
+          <ol className="flex items-center gap-1.5">
             <li>
               <Link to="/documents/list" className="text-sm font-medium text-primary hover:underline">
                 {t("detail.breadcrumb.documents")}

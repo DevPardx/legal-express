@@ -17,7 +17,17 @@ const config: any = [
     languageOptions: {
       parser: tsParser,
       parserOptions: {
-        projectService: true,
+        projectService: {
+          allowDefaultProject: [
+            "apps/backend/prisma.config.ts",
+            "apps/backend/vitest.config.ts",
+            "apps/backend/scripts/*.ts",
+            "apps/frontend/vite.config.ts",
+            "apps/frontend/vitest.config.ts",
+            "apps/frontend/playwright.config.ts",
+            "apps/frontend/e2e/*.ts",
+          ],
+        },
         tsconfigRootDir: __dirname,
       },
     },
@@ -30,7 +40,7 @@ const config: any = [
       ...tseslint.configs["recommended"]!.rules,
       ...reactHooks.configs.recommended.rules,
       ...jsxA11y.configs.recommended.rules,
-      "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
+      "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_", varsIgnorePattern: "^_" }],
       "@typescript-eslint/consistent-type-imports": "error",
       "@typescript-eslint/no-explicit-any": "error",
       "semi": ["error", "always"],

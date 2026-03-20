@@ -17,22 +17,22 @@ function renderBadge(status: Parameters<typeof StatusBadge>[0]["status"]) {
 }
 
 describe("StatusBadge", () => {
-  it('renders "Completed" for completed status', () => {
+  it("renders \"Completed\" for completed status", () => {
     renderBadge("completed");
     expect(screen.getByText("Completed")).toBeInTheDocument();
   });
 
-  it('renders "Processing" for processing status', () => {
+  it("renders \"Processing\" for processing status", () => {
     renderBadge("processing");
     expect(screen.getByText("Processing")).toBeInTheDocument();
   });
 
-  it('renders "Queued" for queued status', () => {
+  it("renders \"Queued\" for queued status", () => {
     renderBadge("queued");
     expect(screen.getByText("Queued")).toBeInTheDocument();
   });
 
-  it('renders "Failed" for failed status', () => {
+  it("renders \"Failed\" for failed status", () => {
     renderBadge("failed");
     expect(screen.getByText("Failed")).toBeInTheDocument();
   });
