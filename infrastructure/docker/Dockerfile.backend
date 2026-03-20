@@ -56,6 +56,7 @@ RUN addgroup --system --gid 1001 nodejs && \
 COPY --from=builder --chown=appuser:nodejs /app/apps/backend/dist ./dist
 COPY --from=builder --chown=appuser:nodejs /app/apps/backend/src/templates ./dist/templates
 COPY --from=builder --chown=appuser:nodejs /app/apps/backend/prisma ./prisma
+COPY --from=builder --chown=appuser:nodejs /app/apps/backend/prisma.config.ts ./prisma.config.ts
 COPY --from=builder --chown=appuser:nodejs /app/node_modules ./node_modules
 
 USER appuser
