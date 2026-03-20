@@ -14,6 +14,11 @@ export default defineConfig({
       exclude: ["src/main.tsx", "src/**/*.d.ts", "src/test/**"],
     },
   },
+  server: {
+    deps: {
+      inline: ["lucide-react"],
+    },
+  },
   resolve: {
     alias: {
       "@legal-express/shared": new URL(
