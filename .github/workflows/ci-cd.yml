@@ -171,6 +171,9 @@ jobs:
 
       - name: Run E2E tests
         run: npm run test:e2e
+        env:
+          ADMIN_EMAIL: admin@legalexpress.local
+          ADMIN_PASSWORD: e2etestpassword
 
       - uses: actions/upload-artifact@v4
         if: failure()
