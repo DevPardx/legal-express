@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: legal-express-config
+  namespace: legal-express
+data:
+  NODE_ENV: "production"
+  PORT: "3000"
+  LOG_LEVEL: "info"
+  PDF_STORAGE_DIR: "/app/generated"
+  FRONTEND_URL: "https://legal-express.example.com"

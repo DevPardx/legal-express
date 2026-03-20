@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32" fill="none">
+  <style>
+    .s {
+      stroke: #0f172a;
+    }
+    @media (prefers-color-scheme: dark) {
+      .s {
+        stroke: #ffffff;
+      }
+    }
+  </style>
+
+  <!-- Pole -->
+  <line class="s" x1="12" y1="4" x2="12" y2="20" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- Beam -->
+  <line class="s" x1="4" y1="7" x2="20" y2="7" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- Left arm -->
+  <line class="s" x1="4" y1="7" x2="4" y2="13" stroke-width="1.2" stroke-linecap="round"/>
+
+  <!-- Right arm -->
+  <line class="s" x1="20" y1="7" x2="20" y2="13" stroke-width="1.2" stroke-linecap="round"/>
+
+  <!-- Left pan -->
+  <path class="s" d="M1.5 13 Q4 17 6.5 13" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Right pan -->
+  <path class="s" d="M17.5 13 Q20 17 22.5 13" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Base -->
+  <line class="s" x1="9" y1="20" x2="15" y2="20" stroke-width="1.5" stroke-linecap="round"/>
+</svg>

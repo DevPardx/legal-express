@@ -1,0 +1,109 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: legal-express-backend
+  namespace: legal-express
+  labels:
+    app: legal-express-backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: legal-express-backend
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: legal-express-backend
+    spec:
+      terminationGracePeriodSeconds: 30
+      containers:
+        - name: backend
+          image: ghcr.io/your-org/legal-express-backend:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+              name: http
+          envFrom:
+            - configMapRef:
+                name: legal-express-config
+            - secretRef:
+                name: legal-express-secrets
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "512Mi"
+            limits:
+              cpu: "1000m"
+              memory: "1Gi"
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 3000
+            initialDelaySeconds: 30
+            periodSeconds: 20
+            failureThreshold: 3
+          volumeMounts:
+            - name: generated-docs
+              mountPath: /app/generated
+      volumes:
+        - name: generated-docs
+          emptyDir: {}
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1001
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: legal-express-frontend
+  namespace: legal-express
+  labels:
+    app: legal-express-frontend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: legal-express-frontend
+  template:
+    metadata:
+      labels:
+        app: legal-express-frontend
+    spec:
+      containers:
+        - name: frontend
+          image: ghcr.io/your-org/legal-express-frontend:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "256Mi"
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 20

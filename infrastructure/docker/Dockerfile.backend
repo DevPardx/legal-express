@@ -1,0 +1,74 @@
+# ============================================================
+# Multi-stage Dockerfile for Backend
+# Stage 1: deps    — Install all dependencies
+# Stage 2: builder — Compile TypeScript
+# Stage 3: runner  — Minimal production image
+# Stage 4: development — For local dev with tsx watch
+# ============================================================
+
+ARG NODE_VERSION=22
+FROM node:${NODE_VERSION}-alpine AS base
+WORKDIR /app
+RUN apk add --no-cache libc6-compat
+
+# ---- Dependencies ----
+FROM base AS deps
+COPY package*.json ./
+COPY apps/backend/package*.json ./apps/backend/
+COPY packages/shared/package*.json ./packages/shared/
+RUN npm ci --workspace=apps/backend --workspace=packages/shared
+
+# ---- Build shared package ----
+FROM deps AS shared-builder
+COPY packages/shared ./packages/shared
+RUN npm run build -w packages/shared
+
+# ---- Build TypeScript ----
+FROM shared-builder AS builder
+COPY apps/backend ./apps/backend
+# Generate Prisma client
+RUN npx prisma generate --schema=apps/backend/prisma/schema.prisma
+RUN npm run build -w apps/backend
+
+# ---- Production runner ----
+FROM node:${NODE_VERSION}-alpine AS runner
+WORKDIR /app
+
+# Install Chromium for Puppeteer
+RUN apk add --no-cache \
+    chromium \
+    nss \
+    freetype \
+    harfbuzz \
+    ca-certificates \
+    ttf-freefont
+
+# Tell Puppeteer to use installed Chromium
+ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+
+# Non-root user for security
+RUN addgroup --system --gid 1001 nodejs && \
+    adduser --system --uid 1001 appuser && \
+    mkdir -p /app/generated && chown appuser:nodejs /app/generated
+
+COPY --from=builder --chown=appuser:nodejs /app/apps/backend/dist ./dist
+COPY --from=builder --chown=appuser:nodejs /app/apps/backend/src/templates ./dist/templates
+COPY --from=builder --chown=appuser:nodejs /app/apps/backend/prisma ./prisma
+COPY --from=builder --chown=appuser:nodejs /app/node_modules ./node_modules
+
+USER appuser
+
+EXPOSE 3000
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD wget -qO- http://localhost:3000/health || exit 1
+
+CMD ["node", "dist/server.js"]
+
+# ---- Development stage ----
+FROM deps AS development
+COPY packages/shared ./packages/shared
+COPY apps/backend ./apps/backend
+RUN npx prisma generate --schema=apps/backend/prisma/schema.prisma
+EXPOSE 3000
+CMD ["npx", "tsx", "watch", "apps/backend/src/server.ts"]

@@ -1,0 +1,126 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id        String    @id @default(uuid()) @db.Uuid
+  email     String    @unique
+  firstName String    @map("first_name")
+  lastName  String    @map("last_name")
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  matters   Matter[]
+  invoices  Invoice[]
+
+  @@map("users")
+}
+
+model Matter {
+  id          String       @id @default(uuid()) @db.Uuid
+  title       String
+  description String?
+  status      MatterStatus @default(OPEN)
+  userId      String       @map("user_id") @db.Uuid
+  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  documents   Document[]
+  invoices    Invoice[]
+  createdAt   DateTime     @default(now()) @map("created_at")
+  updatedAt   DateTime     @updatedAt @map("updated_at")
+
+  @@index([userId])
+  @@index([status])
+  @@map("matters")
+}
+
+model Document {
+  id        String         @id @default(uuid()) @db.Uuid
+  title     String
+  type      DocumentType
+  content   String?        @db.Text
+  fileUrl   String?        @map("file_url")
+  status    DocumentStatus @default(PENDING)
+  matterId  String?        @map("matter_id") @db.Uuid
+  matter    Matter?        @relation(fields: [matterId], references: [id], onDelete: SetNull)
+  jobId     String?        @unique @map("job_id") @db.Uuid
+  job       Job?           @relation(fields: [jobId], references: [id])
+  formData  Json           @map("form_data") @default("{}")
+  createdAt DateTime       @default(now()) @map("created_at")
+  updatedAt DateTime       @updatedAt @map("updated_at")
+
+  @@index([matterId])
+  @@index([status])
+  @@map("documents")
+}
+
+model Invoice {
+  id            String        @id @default(uuid()) @db.Uuid
+  transactionId String?       @unique @map("transaction_id")
+  amount        Decimal       @db.Decimal(10, 2)
+  status        InvoiceStatus @default(PENDING)
+  dueDate       DateTime      @map("due_date")
+  userId        String        @map("user_id") @db.Uuid
+  user          User          @relation(fields: [userId], references: [id])
+  matterId      String        @map("matter_id") @db.Uuid
+  matter        Matter        @relation(fields: [matterId], references: [id])
+  createdAt     DateTime      @default(now()) @map("created_at")
+  updatedAt     DateTime      @updatedAt @map("updated_at")
+
+  @@index([userId, status])
+  @@index([matterId])
+  @@map("invoices")
+}
+
+model Job {
+  id          String    @id @default(uuid()) @db.Uuid
+  status      JobStatus @default(QUEUED)
+  payload     Json
+  result      Json?
+  error       String?   @db.Text
+  attempts    Int       @default(0)
+  maxAttempts Int       @default(3) @map("max_attempts")
+  document    Document?
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+
+  @@index([status])
+  @@map("jobs")
+}
+
+enum MatterStatus {
+  OPEN
+  CLOSED
+  PENDING
+}
+
+enum DocumentType {
+  CONTRACT
+  INVOICE
+  AGREEMENT
+  LETTER
+  NDA
+}
+
+enum DocumentStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+}
+
+enum InvoiceStatus {
+  PENDING
+  PAID
+  OVERDUE
+  CANCELLED
+}
+
+enum JobStatus {
+  QUEUED
+  PROCESSING
+  COMPLETED
+  FAILED
+}
