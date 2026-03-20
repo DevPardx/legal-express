@@ -10,7 +10,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const config: any = [
   {
-    ignores: ["**/dist/**", "**/node_modules/**", "**/coverage/**"],
+    ignores: ["**/dist/**", "**/node_modules/**", "**/coverage/**", "**/*.d.ts", "eslint.config.js"],
   },
   {
     files: ["**/*.{ts,tsx}"],
