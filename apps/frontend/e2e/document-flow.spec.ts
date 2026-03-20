@@ -132,16 +132,16 @@ test.describe("Language toggle (i18n)", () => {
   });
 
   test("toggles to French and back to English", async ({ page }) => {
-    await page.goto("/request");
+    await page.goto("/documents");
     // English is the default
-    await expect(page.getByLabel(/Full Name/i)).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Dashboard/i })).toBeVisible();
 
     // Toggle to French
     await page.getByText("EN | FR").click();
-    await expect(page.getByLabel(/Nom complet/i)).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Tableau de bord/i })).toBeVisible();
 
     // Toggle back to English
     await page.getByText(/FR \| EN/).click();
-    await expect(page.getByLabel(/Full Name/i)).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Dashboard/i })).toBeVisible();
   });
 });
