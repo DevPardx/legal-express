@@ -19,7 +19,8 @@ vi.mock("@/config/database.config.js", () => ({
         $transaction: vi.fn().mockImplementation(async (fn) => {
             return fn({
                 job: { update: vi.fn() },
-                invoice: { upsert: vi.fn() },
+                invoice: { create: vi.fn(), update: vi.fn() },
+                $queryRaw: vi.fn().mockResolvedValue([]),
             });
         }),
     },
