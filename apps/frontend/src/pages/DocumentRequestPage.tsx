@@ -16,7 +16,7 @@ export function DocumentRequestPage() {
         formId: documentRequestSchema.id,
         userId: crypto.randomUUID(),
         formData: data,
-        outputFormat: (data["outputFormat"] as "pdf" | "html" | "docx") ?? "pdf",
+        outputFormat: (data["outputFormat"] as "pdf" | "html" | "docx" | undefined) ?? "pdf",
         templateId: String(data["documentType"] ?? "NDA"),
       });
       navigate(`/success/${res.jobId}`);

@@ -54,7 +54,7 @@ export function ReviewStep({ formData }: ReviewStepProps) {
         <ReviewRow labelKey="review.label.documentType" value={String(formData["documentType"] ?? "")} />
         <ReviewRow labelKey="review.label.description" value={String(formData["description"] ?? "")} />
         <ReviewRow labelKey="review.label.urgent" value={boolDisplay(formData["urgent"])} />
-        {formData["urgent"] && (
+        {Boolean(formData["urgent"]) && (
           <ReviewRow labelKey="review.label.urgencyReason" value={String(formData["urgencyReason"] ?? "")} />
         )}
         <ReviewRow labelKey="review.label.dueDate" value={String(formData["dueDate"] ?? "")} />

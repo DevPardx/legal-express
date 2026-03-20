@@ -166,14 +166,14 @@ describe("useFormEngine — prevStep", () => {
 describe("useFormEngine — conditional fields", () => {
   it("hides conditional field when condition is not met", () => {
     const { result } = renderHook(() => useFormEngine(conditionalSchema, vi.fn()), { wrapper });
-    const reasonField = conditionalSchema.steps[0].fields[1];
+    const reasonField = conditionalSchema.steps[0]!.fields[1]!;
     expect(result.current.isFieldVisible(reasonField)).toBe(false);
   });
 
   it("shows conditional field when condition is met", () => {
     const { result } = renderHook(() => useFormEngine(conditionalSchema, vi.fn()), { wrapper });
     act(() => { result.current.setValue("urgent", true); });
-    const reasonField = conditionalSchema.steps[0].fields[1];
+    const reasonField = conditionalSchema.steps[0]!.fields[1]!;
     expect(result.current.isFieldVisible(reasonField)).toBe(true);
   });
 

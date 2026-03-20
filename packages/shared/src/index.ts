@@ -47,7 +47,7 @@ export interface GenerateDocRequest {
     formId: string;
     userId: string;
     formData: Record<string, unknown>;
-    outputFormat: "pdf" | "html";
+    outputFormat: "pdf" | "html" | "docx";
     templateId?: string | undefined;
 }
 

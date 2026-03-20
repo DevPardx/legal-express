@@ -61,7 +61,7 @@ export function DynamicForm({ schema, onSubmit }: DynamicFormProps) {
       )}
 
       <div
-        ref={stepContentRef}
+        ref={stepContentRef as React.RefObject<HTMLDivElement>}
         tabIndex={-1}
         className="outline-none"
         aria-live="polite"

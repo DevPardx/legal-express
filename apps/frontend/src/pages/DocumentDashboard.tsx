@@ -55,7 +55,7 @@ export function DocumentDashboard() {
       setDocuments((prev) =>
         prev.map((d) =>
           d.id === event.documentId
-            ? { ...d, status: event.status as JobStatus, fileUrl: event.fileUrl ?? d.fileUrl }
+            ? { ...d, status: event.status as JobStatus, fileUrl: event.fileUrl !== undefined ? event.fileUrl : d.fileUrl }
             : d
         )
       );
