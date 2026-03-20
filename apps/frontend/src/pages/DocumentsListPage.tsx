@@ -72,17 +72,18 @@ export function DocumentsListPage() {
   return (
     <>
     <DashboardLayout>
-      <div className="flex flex-col gap-7 p-10">
-        <div className="flex items-center justify-between">
-          <h1 className="font-display font-semibold text-[28px] text-text tracking-tight">
+      <div className="flex flex-col gap-7 p-5 md:p-10">
+        <div className="flex items-center justify-between gap-3">
+          <h1 className="font-display font-semibold text-2xl md:text-[28px] text-text tracking-tight">
             {t("nav.myDocuments")}
           </h1>
           <Link
             to="/request"
-            className="flex items-center gap-2 h-11 px-5 rounded-md bg-navy text-white font-display font-medium text-sm hover:opacity-90 transition-opacity"
+            className="flex items-center gap-2 h-10 md:h-11 px-4 md:px-5 rounded-md bg-navy text-white font-display font-medium text-sm hover:opacity-90 transition-opacity shrink-0"
           >
             <Plus size={16} aria-hidden="true" />
-            {t("header.newRequest")}
+            <span className="hidden sm:inline">{t("header.newRequest")}</span>
+            <span className="sm:hidden">New</span>
           </Link>
         </div>
 
@@ -100,6 +101,7 @@ export function DocumentsListPage() {
             </div>
           ) : (
             <>
+              <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
                   <tr className="bg-[#FAFAFA] border-b border-[#E5E7EB]">
@@ -140,8 +142,9 @@ export function DocumentsListPage() {
                   })}
                 </tbody>
               </table>
+              </div>
 
-              <div className="flex items-center justify-between px-10 py-4 border-t border-[#E5E7EB]">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 px-5 md:px-10 py-4 border-t border-[#E5E7EB]">
                 <span className="text-sm text-muted">
                   {t("dashboard.showing", { count: documents.length, total })}
                 </span>

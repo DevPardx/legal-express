@@ -1,4 +1,4 @@
-import { Scale, LayoutDashboard, FileText, Receipt, Settings, LogOut, Webhook } from "lucide-react";
+import { Scale, LayoutDashboard, FileText, Receipt, Settings, LogOut, Webhook, X } from "lucide-react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useI18n } from "../../i18n";
 import { useAuth } from "../../contexts/AuthContext";
@@ -18,7 +18,11 @@ const NAV_ITEMS: NavItem[] = [
   { to: "/settings", icon: <Settings size={18} />, labelKey: "nav.settings" },
 ];
 
-export function Sidebar() {
+interface SidebarProps {
+  onClose?: () => void;
+}
+
+export function Sidebar({ onClose }: SidebarProps) {
   const { t } = useI18n();
   const { logout } = useAuth();
   const navigate = useNavigate();
@@ -28,11 +32,23 @@ export function Sidebar() {
       className="flex flex-col w-60 h-full bg-navy px-5 py-6"
       aria-label="Main navigation"
     >
-      <div className="flex items-center gap-2 pb-6">
-        <Scale size={24} className="text-white" aria-hidden="true" />
-        <span className="font-display font-semibold text-lg text-white">
-          {t("brand.name")}
-        </span>
+      <div className="flex items-center justify-between pb-6">
+        <div className="flex items-center gap-2">
+          <Scale size={24} className="text-white" aria-hidden="true" />
+          <span className="font-display font-semibold text-lg text-white">
+            {t("brand.name")}
+          </span>
+        </div>
+        {onClose && (
+          <button
+            type="button"
+            onClick={onClose}
+            className="md:hidden p-1 rounded text-white/60 hover:text-white transition-colors"
+            aria-label="Close navigation"
+          >
+            <X size={18} />
+          </button>
+        )}
       </div>
 
       <ul className="flex flex-col gap-1 flex-1">
@@ -41,6 +57,7 @@ export function Sidebar() {
             <NavLink
               to={item.to}
               {...(item.end ? { end: true } : {})}
+              onClick={onClose}
               className={({ isActive }) =>
                 `flex items-center gap-2.5 h-10 px-3 rounded-md text-sm font-medium transition-colors ${
                   isActive

@@ -1,5 +1,6 @@
 import { useState, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import { ArrowLeft } from "lucide-react";
 import { DynamicForm } from "../components/form/DynamicForm";
 import { documentRequestSchema } from "../lib/formSchema";
 import { generateDocument } from "../lib/api";
@@ -27,9 +28,18 @@ export function DocumentRequestPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-bg">
+      <div className="px-6 py-4 border-b border-[#E5E7EB] bg-white">
+        <Link
+          to="/documents"
+          className="inline-flex items-center gap-2 text-sm font-medium text-[#6B7280] hover:text-text transition-colors"
+        >
+          <ArrowLeft size={16} />
+          Back to Dashboard
+        </Link>
+      </div>
       <main
         id="main-content"
-        className="flex-1 flex items-center justify-center px-12 py-10"
+        className="flex-1 flex items-center justify-center px-5 sm:px-12 py-10"
         tabIndex={-1}
       >
         <DynamicForm schema={documentRequestSchema} onSubmit={handleSubmit} />

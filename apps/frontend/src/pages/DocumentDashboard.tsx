@@ -84,21 +84,22 @@ export function DocumentDashboard() {
   return (
     <>
     <DashboardLayout>
-      <div className="flex flex-col gap-7 p-10">
-        <div className="flex items-center justify-between">
-          <h1 className="font-display font-semibold text-[28px] text-text tracking-tight">
+      <div className="flex flex-col gap-7 p-5 md:p-10">
+        <div className="flex items-center justify-between gap-3">
+          <h1 className="font-display font-semibold text-2xl md:text-[28px] text-text tracking-tight">
             {t("dashboard.title")}
           </h1>
           <Link
             to="/request"
-            className="flex items-center gap-2 h-11 px-5 rounded-md bg-navy text-white font-display font-medium text-sm hover:opacity-90 transition-opacity"
+            className="flex items-center gap-2 h-10 md:h-11 px-4 md:px-5 rounded-md bg-navy text-white font-display font-medium text-sm hover:opacity-90 transition-opacity shrink-0"
           >
             <Plus size={16} aria-hidden="true" />
-            {t("header.newRequest")}
+            <span className="hidden sm:inline">{t("header.newRequest")}</span>
+            <span className="sm:hidden">New</span>
           </Link>
         </div>
 
-        <div className="grid grid-cols-3 gap-5" role="list" aria-label="Document statistics">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-5" role="list" aria-label="Document statistics">
           <div className="bg-white rounded-lg border border-[#E5E7EB] p-6 flex flex-col gap-2" role="listitem">
             <span className="text-sm text-muted">{t("dashboard.totalDocs")}</span>
             <span className="font-display font-semibold text-[32px] text-text tracking-tight">
@@ -121,6 +122,7 @@ export function DocumentDashboard() {
 
         <div className="bg-white rounded-lg border border-[#E5E7EB] overflow-hidden" role="region" aria-label="Documents list">
           {isLoading ? (
+
             <div className="flex items-center justify-center py-20">
               <Loader2 size={24} className="animate-spin text-muted" />
             </div>
@@ -133,6 +135,7 @@ export function DocumentDashboard() {
             </div>
           ) : (
             <>
+              <div className="overflow-x-auto">
               <table className="w-full text-sm" aria-label={t("dashboard.title")}>
                 <thead>
                   <tr className="bg-[#FAFAFA] border-b border-[#E5E7EB]">
@@ -177,8 +180,9 @@ export function DocumentDashboard() {
                   })}
                 </tbody>
               </table>
+              </div>
 
-              <div className="flex items-center justify-between px-10 py-4 border-t border-[#E5E7EB]">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 px-5 md:px-10 py-4 border-t border-[#E5E7EB]">
                 <span className="text-sm text-muted">
                   {t("dashboard.showing", { count: documents.length, total })}
                 </span>

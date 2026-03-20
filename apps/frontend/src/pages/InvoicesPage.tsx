@@ -27,7 +27,7 @@ export function InvoicesPage() {
 
   return (
     <DashboardLayout>
-      <div className="flex flex-col gap-6 p-10">
+      <div className="flex flex-col gap-6 p-5 md:p-10">
         <div className="flex items-center gap-3">
           <Receipt size={24} className="text-primary" aria-hidden="true" />
           <h1 className="font-display font-semibold text-[28px] text-text tracking-tight">Invoices</h1>
@@ -42,6 +42,7 @@ export function InvoicesPage() {
             <div className="flex items-center justify-center py-20 text-sm text-muted">No invoices yet.</div>
           ) : (
             <>
+              <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
                   <tr className="bg-[#FAFAFA] border-b border-[#E5E7EB]">
@@ -74,6 +75,7 @@ export function InvoicesPage() {
                   ))}
                 </tbody>
               </table>
+              </div>
               <div className="px-5 py-4 border-t border-[#E5E7EB]">
                 <span className="text-sm text-muted">{invoices.length} invoice{invoices.length !== 1 ? "s" : ""}</span>
               </div>

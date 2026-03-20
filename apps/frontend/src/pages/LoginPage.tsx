@@ -32,7 +32,8 @@ export function LoginPage() {
 
   return (
     <div className="flex h-screen overflow-hidden">
-      <div className="w-150 shrink-0 bg-[#0F1D3D] flex flex-col justify-center px-16 py-20 gap-10">
+      {/* Left hero panel — hidden on mobile */}
+      <div className="hidden md:flex w-80 lg:w-150 shrink-0 bg-[#0F1D3D] flex-col justify-center px-10 lg:px-16 py-20 gap-10">
         <div className="flex items-center gap-2.5">
           <Scale size={28} className="text-white" />
           <span className="font-display font-semibold text-xl text-white">Legal Express</span>
@@ -60,8 +61,14 @@ export function LoginPage() {
         </div>
       </div>
 
-      <div className="flex-1 bg-[#F5F6F8] flex items-center justify-center px-16">
-        <div className="bg-white rounded-xl shadow-[0_4px_24px_rgba(0,0,0,0.10)] p-10 w-full max-w-110 flex flex-col gap-6">
+      <div className="flex-1 bg-[#F5F6F8] flex items-center justify-center px-5 sm:px-10 md:px-16">
+        <div className="bg-white rounded-xl shadow-[0_4px_24px_rgba(0,0,0,0.10)] p-6 sm:p-10 w-full max-w-110 flex flex-col gap-6">
+          {/* Logo shown only on mobile (hero panel is hidden) */}
+          <div className="flex items-center gap-2 md:hidden">
+            <Scale size={22} className="text-navy" />
+            <span className="font-display font-semibold text-base text-navy">Legal Express</span>
+          </div>
+
           <div className="flex flex-col gap-1.5">
             <h1 className="font-display font-bold text-2xl text-[#0D1117]">Welcome back</h1>
             <p className="text-sm text-[#6B7280]">Sign in to your account to continue</p>

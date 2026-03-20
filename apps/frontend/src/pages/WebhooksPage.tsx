@@ -36,7 +36,7 @@ export function WebhooksPage() {
 
   return (
     <DashboardLayout>
-      <div className="flex flex-col gap-6 p-8">
+      <div className="flex flex-col gap-6 p-5 md:p-8">
         <div className="flex items-center gap-3">
           <Webhook size={24} className="text-primary" aria-hidden="true" />
           <h1 className="font-display font-semibold text-2xl text-text">{t("webhooks.title")}</h1>
@@ -55,6 +55,7 @@ export function WebhooksPage() {
             </div>
           ) : (
             <>
+              <div className="overflow-x-auto">
               <table className="w-full text-sm" aria-label={t("webhooks.title")}>
                 <thead>
                   <tr className="bg-[#F9FAFB] border-b border-[#E5E7EB]">
@@ -88,6 +89,7 @@ export function WebhooksPage() {
                   })}
                 </tbody>
               </table>
+              </div>
               <div className="px-5 py-4 border-t border-[#E5E7EB]">
                 <span className="text-sm text-muted">{entries.length} event{entries.length !== 1 ? "s" : ""}</span>
               </div>

@@ -121,7 +121,7 @@ export function DocumentDetail() {
   return (
     <>
     <DashboardLayout>
-      <div className="flex items-center justify-between px-8 py-4 bg-white border-b border-[#E5E7EB]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-5 md:px-8 py-4 bg-white border-b border-[#E5E7EB]">
         <nav aria-label="Breadcrumb">
           <ol className="flex items-center gap-1.5">
             <li>
@@ -138,30 +138,30 @@ export function DocumentDetail() {
           </ol>
         </nav>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 shrink-0">
           {isBundle && docxUrl && (
             <button
               type="button"
               onClick={() => handleDownload(docxUrl, "docx")}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-lg border border-navy text-navy text-sm font-medium hover:bg-navy/5 transition-colors"
+              className="flex items-center gap-2 px-3 md:px-5 py-2 md:py-2.5 rounded-lg border border-navy text-navy text-sm font-medium hover:bg-navy/5 transition-colors"
             >
               <Download size={16} aria-hidden="true" />
-              Download DOCX
+              <span className="hidden sm:inline">Download </span>DOCX
             </button>
           )}
           <button
             type="button"
             disabled={!doc?.fileUrl}
             onClick={() => handleDownload()}
-            className="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-navy text-white text-sm font-medium hover:opacity-90 transition-opacity disabled:opacity-40"
+            className="flex items-center gap-2 px-3 md:px-5 py-2 md:py-2.5 rounded-lg bg-navy text-white text-sm font-medium hover:opacity-90 transition-opacity disabled:opacity-40"
           >
             <Download size={16} aria-hidden="true" />
-            Download {fileLabel}
+            <span className="hidden sm:inline">Download </span>{fileLabel}
           </button>
         </div>
       </div>
 
-      <div className="flex gap-6 flex-1 p-8 min-h-0">
+      <div className="flex flex-col lg:flex-row gap-6 flex-1 p-5 md:p-8 min-h-0">
         {isLoading ? (
           <div className="flex-1 flex items-center justify-center">
             <Loader2 size={28} className="animate-spin text-muted" />
@@ -221,7 +221,7 @@ export function DocumentDetail() {
               )}
             </div>
 
-            <aside className="w-90 shrink-0 flex flex-col gap-4" aria-label="Document details">
+            <aside className="w-full lg:w-90 lg:shrink-0 flex flex-col gap-4" aria-label="Document details">
               <div className="bg-white rounded-lg border border-[#E5E7EB] p-5 flex flex-col gap-4">
                 <h2 className="font-display font-semibold text-[15px] text-text">{t("detail.info.title")}</h2>
                 <hr className="border-[#E5E7EB]" />
