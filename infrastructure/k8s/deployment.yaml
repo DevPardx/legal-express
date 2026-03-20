@@ -6,7 +6,7 @@ metadata:
   labels:
     app: legal-express-backend
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: legal-express-backend
@@ -35,11 +35,11 @@ spec:
                 name: legal-express-secrets
           resources:
             requests:
-              cpu: "250m"
-              memory: "512Mi"
+              cpu: "100m"
+              memory: "256Mi"
             limits:
-              cpu: "1000m"
-              memory: "1Gi"
+              cpu: "500m"
+              memory: "512Mi"
           readinessProbe:
             httpGet:
               path: /health
@@ -73,7 +73,7 @@ metadata:
   labels:
     app: legal-express-frontend
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: legal-express-frontend
