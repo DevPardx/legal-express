@@ -92,6 +92,31 @@ jobs:
       - run: npm ci
       - run: npx playwright install --with-deps chromium
 
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build backend image (with layer cache)
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: infrastructure/docker/Dockerfile.backend
+          target: development
+          load: true
+          tags: legal-express-backend:dev
+          cache-from: type=gha,scope=backend-dev
+          cache-to: type=gha,scope=backend-dev,mode=max
+
+      - name: Build frontend image (with layer cache)
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: infrastructure/docker/Dockerfile.frontend
+          target: development
+          load: true
+          tags: legal-express-frontend:dev
+          cache-from: type=gha,scope=frontend-dev
+          cache-to: type=gha,scope=frontend-dev,mode=max
+
       - name: Create backend .env for E2E
         run: |
           cat > apps/backend/.env << 'EOF'
@@ -112,12 +137,11 @@ jobs:
         run: npm run docker:up
 
       - name: Wait for services
-        run: |
-          npx wait-on http://localhost:5173 http://localhost:3000/health --timeout 180000
+        run: npx wait-on http://localhost:5173 http://localhost:3000/health --timeout 120000
 
       - name: Show container logs on failure
         if: failure()
-        run: docker compose -f infrastructure/compose.yml logs --tail=50
+        run: docker compose -f infrastructure/compose.yml logs --tail=100
 
       - name: Run E2E tests
         run: npm run test:e2e
