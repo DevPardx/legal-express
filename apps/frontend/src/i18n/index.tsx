@@ -24,10 +24,17 @@ interface I18nContextValue {
 const I18nContext = createContext<I18nContextValue | null>(null);
 
 export function I18nProvider({ children }: { children: ReactNode }) {
-  const [lang, setLang] = useState<Lang>("en");
+  const [lang, setLang] = useState<Lang>(() => {
+    const stored = localStorage.getItem("le_lang");
+    return stored === "fr" ? "fr" : "en";
+  });
 
   const toggleLang = useCallback(() => {
-    setLang((prev) => (prev === "en" ? "fr" : "en"));
+    setLang((prev) => {
+      const next = prev === "en" ? "fr" : "en";
+      localStorage.setItem("le_lang", next);
+      return next;
+    });
   }, []);
 
   const t = useCallback(
