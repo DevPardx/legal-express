@@ -1,11 +1,3 @@
-/**
- * Standalone test for the DOCX template merge + PDF bundle pipeline.
- * Run with: npx tsx scripts/test-docx-merge.ts
- *
- * Tests:
- *  1. Merges data into document.docx template
- *  2. Merges two PDFs into a single bundle (simulates attachment bundling)
- */
 import { mergeDocxTemplate } from "../src/services/docx.service.js";
 import { mergePdfs } from "../src/services/bundle.service.js";
 import { PDFDocument, rgb, StandardFonts } from "pdf-lib";
@@ -16,7 +8,6 @@ import { fileURLToPath } from "url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const GENERATED = join(__dirname, "../generated");
 
-// ── Helper: create a minimal sample PDF in memory ────────────────────────────
 async function createSamplePdf(title: string): Promise<string> {
     const doc = await PDFDocument.create();
     const font = await doc.embedFont(StandardFonts.Helvetica);
@@ -50,7 +41,6 @@ async function createSamplePdf(title: string): Promise<string> {
 async function main() {
     const docId = `test-${Date.now()}`;
 
-    // ── Step 1: DOCX merge ───────────────────────────────────────────────────
     const docxPath = await mergeDocxTemplate({
         templateName: "document",
         outputFileName: `${docId}-merged`,
@@ -72,21 +62,16 @@ async function main() {
     });
     console.log(`DOCX merged: ${docxPath}`);
 
-    // ── Step 2: Create sample attachment PDFs ────────────────────────────────
     const attachment1 = await createSamplePdf("Attachment-1-Terms");
     const attachment2 = await createSamplePdf("Attachment-2-Proof-of-Payment");
     console.log("Sample attachments created");
 
-    // ── Step 3: Bundle PDFs (main + attachments) ─────────────────────────────
-    // Note: to bundle with the main document PDF it must already exist.
-    // Here we bundle the two attachments as a demo.
     const bundlePath = await mergePdfs(
         [attachment1, attachment2],
         `${docId}-bundle`
     );
     console.log(`PDF bundle created: ${bundlePath}`);
 
-    // Final output line (read by test-doc-generation.sh)
     console.log(bundlePath);
 }
 

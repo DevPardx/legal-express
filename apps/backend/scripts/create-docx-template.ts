@@ -1,9 +1,3 @@
-/**
- * Script to generate the sample DOCX template with docxtemplater placeholders.
- * Run with: npx tsx scripts/create-docx-template.ts
- *
- * Produces: src/templates/docx/document.docx
- */
 import PizZip from "pizzip";
 import { writeFile, mkdir } from "fs/promises";
 import { join, dirname } from "path";
@@ -12,7 +6,6 @@ import { fileURLToPath } from "url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUTPUT = join(__dirname, "../src/templates/docx/document.docx");
 
-// Minimal OOXML document with docxtemplater {placeholder} syntax
 const DOCUMENT_XML = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <w:document
   xmlns:wpc="http://schemas.microsoft.com/office/word/2010/wordprocessingCanvas"
