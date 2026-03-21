@@ -142,5 +142,30 @@
   "action.view": "Voir",
   "action.download": "Télécharger",
   "action.delete": "Supprimer",
-  "action.viewDetails": "Voir les détails"
+  "action.viewDetails": "Voir les détails",
+
+  "dashboard.empty": "Aucun document pour l'instant.",
+  "dashboard.createFirst": "Créer votre premier document →",
+  "dashboard.deleteTitle": "Supprimer le document",
+  "dashboard.deleteConfirm": "Êtes-vous sûr de vouloir supprimer « {title} » ? Cette action est irréversible.",
+
+  "invoices.title": "Factures",
+  "invoices.empty": "Aucune facture pour l'instant.",
+  "invoices.count": "{count} facture(s)",
+
+  "webhooks.empty": "Aucun événement webhook reçu pour l'instant.",
+  "webhooks.count": "{count} événement(s)",
+
+  "detail.status.generated": "Document généré.",
+  "detail.status.downloadToView": "Télécharger pour voir",
+  "detail.status.failed": "La génération a échoué. Utilisez Régénérer pour réessayer.",
+  "detail.status.processing": "Le document est en cours de traitement. Le contenu complet sera disponible une fois la génération terminée.",
+  "detail.regenerating": "Régénération…",
+  "detail.deleteTitle": "Supprimer le document",
+  "detail.deleteConfirm": "Êtes-vous sûr de vouloir supprimer « {title} » ? Cette action est irréversible.",
+
+  "request.back": "Retour au tableau de bord",
+
+  "confirm.delete": "Supprimer",
+  "confirm.cancel": "Annuler"
 }

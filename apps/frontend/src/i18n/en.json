@@ -142,5 +142,30 @@
   "action.view": "View",
   "action.download": "Download",
   "action.delete": "Delete",
-  "action.viewDetails": "View Details"
+  "action.viewDetails": "View Details",
+
+  "dashboard.empty": "No documents yet.",
+  "dashboard.createFirst": "Create your first document →",
+  "dashboard.deleteTitle": "Delete document",
+  "dashboard.deleteConfirm": "Are you sure you want to delete \"{title}\"? This action cannot be undone.",
+
+  "invoices.title": "Invoices",
+  "invoices.empty": "No invoices yet.",
+  "invoices.count": "{count} invoice(s)",
+
+  "webhooks.empty": "No webhook events received yet.",
+  "webhooks.count": "{count} event(s)",
+
+  "detail.status.generated": "Document generated.",
+  "detail.status.downloadToView": "Download to view",
+  "detail.status.failed": "Generation failed. Use Re-generate to try again.",
+  "detail.status.processing": "Document is being processed. The full content will be available once generation is complete.",
+  "detail.regenerating": "Regenerating…",
+  "detail.deleteTitle": "Delete document",
+  "detail.deleteConfirm": "Are you sure you want to delete \"{title}\"? This action cannot be undone.",
+
+  "request.back": "Back to Dashboard",
+
+  "confirm.delete": "Delete",
+  "confirm.cancel": "Cancel"
 }

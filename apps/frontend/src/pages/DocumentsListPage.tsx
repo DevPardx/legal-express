@@ -96,8 +96,8 @@ export function DocumentsListPage() {
             <div className="flex items-center justify-center py-20 text-sm text-error">{error}</div>
           ) : documents.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-20 gap-2">
-              <p className="text-sm text-muted">No documents yet.</p>
-              <Link to="/request" className="text-sm text-primary hover:underline">Create your first document →</Link>
+              <p className="text-sm text-muted">{t("dashboard.empty")}</p>
+              <Link to="/request" className="text-sm text-primary hover:underline">{t("dashboard.createFirst")}</Link>
             </div>
           ) : (
             <>
@@ -178,10 +178,10 @@ export function DocumentsListPage() {
 
     <ConfirmModal
       isOpen={deleteTarget !== null}
-      title="Delete document"
-      message={`Are you sure you want to delete "${deleteTarget?.title}"? This action cannot be undone.`}
-      confirmLabel="Delete"
-      cancelLabel="Cancel"
+      title={t("dashboard.deleteTitle")}
+      message={t("dashboard.deleteConfirm", { title: deleteTarget?.title ?? "" })}
+      confirmLabel={t("confirm.delete")}
+      cancelLabel={t("confirm.cancel")}
       isLoading={isDeleting}
       onConfirm={handleDeleteConfirm}
       onCancel={() => setDeleteTarget(null)}

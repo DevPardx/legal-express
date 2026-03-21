@@ -51,7 +51,7 @@ export function WebhooksPage() {
             <div className="flex items-center justify-center py-20 text-sm text-error">{error}</div>
           ) : entries.length === 0 ? (
             <div className="flex items-center justify-center py-20 text-sm text-muted">
-              No webhook events received yet.
+              {t("webhooks.empty")}
             </div>
           ) : (
             <>
@@ -91,7 +91,7 @@ export function WebhooksPage() {
               </table>
               </div>
               <div className="px-5 py-4 border-t border-[#E5E7EB]">
-                <span className="text-sm text-muted">{entries.length} event{entries.length !== 1 ? "s" : ""}</span>
+                <span className="text-sm text-muted">{t("webhooks.count", { count: entries.length })}</span>
               </div>
             </>
           )}

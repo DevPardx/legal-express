@@ -205,16 +205,16 @@ export function DocumentDetail() {
 
                   {doc.status === "completed" ? (
                     <div className="text-sm text-muted">
-                      <p>Document generated. <button type="button" onClick={() => handleDownload()} className="text-primary hover:underline">Download to view</button>.</p>
+                      <p>{t("detail.status.generated")} <button type="button" onClick={() => handleDownload()} className="text-primary hover:underline">{t("detail.status.downloadToView")}</button>.</p>
                     </div>
                   ) : doc.status === "failed" ? (
                     <div className="text-sm text-error">
-                      <p>Generation failed. Use Re-generate to try again.</p>
+                      <p>{t("detail.status.failed")}</p>
                     </div>
                   ) : (
                     <div className="flex items-center gap-2 text-sm text-muted">
                       <Loader2 size={14} className="animate-spin" />
-                      <p>Document is being processed. The full content will be available once generation is complete.</p>
+                      <p>{t("detail.status.processing")}</p>
                     </div>
                   )}
                 </article>
@@ -273,7 +273,7 @@ export function DocumentDetail() {
                   <button type="button" onClick={handleRegenerate} disabled={isRegenerating}
                     className="flex items-center justify-center gap-2 w-full px-4 py-2.5 rounded-lg border border-[#E5E7EB] text-text text-sm font-medium hover:bg-gray-50 transition-colors disabled:opacity-50">
                     <RefreshCw size={16} className={isRegenerating ? "animate-spin" : ""} aria-hidden="true" />
-                    {isRegenerating ? "Regenerating…" : t("detail.actions.regenerate")}
+                    {isRegenerating ? t("detail.regenerating") : t("detail.actions.regenerate")}
                   </button>
                   <button type="button" onClick={() => setShowDeleteModal(true)}
                     className="flex items-center justify-center gap-2 w-full px-4 py-2.5 rounded-lg text-error text-sm font-medium hover:bg-[#FEF2F2] transition-colors">
@@ -289,10 +289,10 @@ export function DocumentDetail() {
 
     <ConfirmModal
       isOpen={showDeleteModal}
-      title="Delete document"
-      message={`Are you sure you want to delete "${doc?.title}"? This action cannot be undone.`}
-      confirmLabel="Delete"
-      cancelLabel="Cancel"
+      title={t("detail.deleteTitle")}
+      message={t("detail.deleteConfirm", { title: doc?.title ?? "" })}
+      confirmLabel={t("confirm.delete")}
+      cancelLabel={t("confirm.cancel")}
       isLoading={isDeleting}
       onConfirm={handleDeleteConfirm}
       onCancel={() => setShowDeleteModal(false)}

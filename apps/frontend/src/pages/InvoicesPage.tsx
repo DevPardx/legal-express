@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Receipt, Loader2 } from "lucide-react";
 import { DashboardLayout } from "../components/layout/DashboardLayout";
+import { useI18n } from "../i18n";
 import { listInvoices, type InvoiceEntry } from "../lib/api";
 
 function statusBadge(status: string) {
@@ -14,6 +15,7 @@ function statusBadge(status: string) {
 }
 
 export function InvoicesPage() {
+  const { t } = useI18n();
   const [invoices, setInvoices] = useState<InvoiceEntry[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -30,7 +32,7 @@ export function InvoicesPage() {
       <div className="flex flex-col gap-6 p-5 md:p-10">
         <div className="flex items-center gap-3">
           <Receipt size={24} className="text-primary" aria-hidden="true" />
-          <h1 className="font-display font-semibold text-[28px] text-text tracking-tight">Invoices</h1>
+          <h1 className="font-display font-semibold text-[28px] text-text tracking-tight">{t("invoices.title")}</h1>
         </div>
 
         <div className="bg-white rounded-lg border border-[#E5E7EB] overflow-hidden">
@@ -39,7 +41,7 @@ export function InvoicesPage() {
           ) : error ? (
             <div className="flex items-center justify-center py-20 text-sm text-error">{error}</div>
           ) : invoices.length === 0 ? (
-            <div className="flex items-center justify-center py-20 text-sm text-muted">No invoices yet.</div>
+            <div className="flex items-center justify-center py-20 text-sm text-muted">{t("invoices.empty")}</div>
           ) : (
             <>
               <div className="overflow-x-auto">
@@ -77,7 +79,7 @@ export function InvoicesPage() {
               </table>
               </div>
               <div className="px-5 py-4 border-t border-[#E5E7EB]">
-                <span className="text-sm text-muted">{invoices.length} invoice{invoices.length !== 1 ? "s" : ""}</span>
+                <span className="text-sm text-muted">{t("invoices.count", { count: invoices.length })}</span>
               </div>
             </>
           )}
